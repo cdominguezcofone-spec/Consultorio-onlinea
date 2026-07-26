@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Turnos - Consultorio Médico</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Consultorio Médico Integral</h1>
+        <p>Gestión de turnos online y presenciales de forma rápida y segura</p>
+    </header>
+
+    <div class="container">
+        <h2>Nuestros Especialistas</h2>
+        <div class="especialistas-grid">
+            <div class="card-medico">
+                <h4>Dr. Mateo Fernández</h4>
+                <p>Cardiología</p>
+            </div>
+            <div class="card-medico">
+                <h4>Dra. Sofía Benítez</h4>
+                <p>Pediatría</p>
+            </div>
+            <div class="card-medico">
+                <h4>Dr. Lucas Gómez</h4>
+                <p>Odontología General</p>
+            </div>
+            <div class="card-medico">
+                <h4>Dra. Valentina Torres</h4>
+                <p>Psicología Clínica</p>
+            </div>
+            <div class="card-medico">
+                <h4>Dr. Joaquín Ramírez</h4>
+                <p>Traumatología</p>
+            </div>
+        </div>
+
+        <h2>Solicitar Turno</h2>
+        <form id="formTurno">
+            <div class="form-group">
+                <label for="especialista">Seleccione Especialista:</label>
+                <select id="especialista" required>
+                    <option value="">-- Elija un profesional --</option>
+                    <option value="Dr. Mateo Fernández">Dr. Mateo Fernández (Cardiología)</option>
+                    <option value="Dra. Sofía Benítez">Dra. Sofía Benítez (Pediatría)</option>
+                    <option value="Dr. Lucas Gómez">Dr. Lucas Gómez (Odontología General)</option>
+                    <option value="Dra. Valentina Torres">Dra. Valentina Torres (Psicología Clínica)</option>
+                    <option value="Dr. Joaquín Ramírez">Dr. Joaquín Ramírez (Traumatología)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fecha">Fecha del Turno:</label>
+                <input type="date" id="fecha" required>
+            </div>
+
+            <div class="form-group">
+                <label for="paciente">Nombre y Apellido del Paciente:</label>
+                <input type="text" id="paciente" placeholder="Ej. Juan Pérez" required>
+            </div>
+
+            <div class="form-group">
+                <label for="correo">Correo Electrónico (para recibir confirmación):</label>
+                <input type="email" id="correo" placeholder="correo@ejemplo.com" required>
+            </div>
+
+            <button type="submit" class="btn-enviar" id="btnSubmit">Confirmar Turno</button>
+        </form>
+
+        <div id="mensaje-resultado"></div>
+
+        <div class="extra-actions">
+            <p class="calif-text">¿Ya fuiste atendido? Ayúdanos a mejorar:</p>
+            <!-- REEMPLAZA EL ENLACE DE ABAJO POR EL LINK REAL DE TU GOOGLE FORM -->
+            <a href="https://forms.gle/TU_ENLACE_DE_GOOGLE_FORM" target="_blank" class="btn-calificar">⭐ Calificar Atención</a>
+        </div>
+    </div>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/5492325460892?text=Hola,%20quisiera%20hacer%20una%20consulta%20sobre%20los%20turnos" target="_blank" class="whatsapp-float">
+        💬 Consultas WhatsApp
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>
