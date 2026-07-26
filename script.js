@@ -1,3 +1,6 @@
+// URL de tu Web App de Google Apps Script desplegada
+const URL_WEB_APP = "https://script.google.com/macros/s/AKfycbwkdAyAfoNE4rHb3QMHLDcYLcMqOm054c-nwLC122nEe6hDWjE1U5P5fXuOxhygegJ8/exec";
+
 document.getElementById('formTurno').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -6,6 +9,7 @@ document.getElementById('formTurno').addEventListener('submit', function(e) {
     
     btn.disabled = true;
     btn.textContent = "Procesando...";
+    msgBox.style.display = 'none';
     
     const datos = {
         especialista: document.getElementById('especialista').value,
@@ -14,30 +18,32 @@ document.getElementById('formTurno').addEventListener('submit', function(e) {
         correo: document.getElementById('correo').value
     };
 
-    // Envía los datos a tu backend en Google Apps Script
-    google.script.run
-        .withSuccessHandler(function(res) {
-            msgBox.style.display = 'block';
-            if (res.exito) {
-                msgBox.style.backgroundColor = '#d1fae5';
-                msgBox.style.color = '#065f46';
-                msgBox.textContent = res.mensaje;
-                document.getElementById('formTurno').reset();
-            } else {
-                msgBox.style.backgroundColor = '#fee2e2';
-                msgBox.style.color = '#991b1b';
-                msgBox.textContent = res.mensaje;
-            }
-            btn.disabled = false;
-            btn.textContent = "Confirmar Turno";
-        })
-        .withFailureHandler(function(err) {
-            msgBox.style.display = 'block';
-            msgBox.style.backgroundColor = '#fee2e2';
-            msgBox.style.color = '#991b1b';
-            msgBox.textContent = "Ocurrió un error de conexión: " + err.message;
-            btn.disabled = false;
-            btn.textContent = "Confirmar Turno";
-        })
-        .agendarTurnoWeb(datos);
+    // Petición HTTP POST hacia tu Google Apps Script
+    fetch(URL_WEB_APP, {
+        method: 'POST',
+        mode: 'no-cors', // Evita bloqueos de CORS con Google Apps Script
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datos)
+    })
+    .then(() => {
+        msgBox.style.display = 'block';
+        msgBox.style.backgroundColor = '#d1fae5';
+        msgBox.style.color = '#065f46';
+        msgBox.textContent = "¡Turno registrado con éxito! Se ha enviado la confirmación a su correo.";
+        document.getElementById('formTurno').reset();
+        
+        btn.disabled = false;
+        btn.textContent = "Confirmar Turno";
+    })
+    .catch((err) => {
+        msgBox.style.display = 'block';
+        msgBox.style.backgroundColor = '#fee2e2';
+        msgBox.style.color = '#991b1b';
+        msgBox.textContent = "Ocurrió un error de conexión: " + err.message;
+        
+        btn.disabled = false;
+        btn.textContent = "Confirmar Turno";
+    });
 });
