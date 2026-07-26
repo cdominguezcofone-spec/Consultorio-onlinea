@@ -1,5 +1,5 @@
 // URL de tu Web App de Google Apps Script desplegada
-const URL_WEB_APP = "https://script.google.com/macros/s/AKfycbyXA6WvB0OZlt_EoslZfLpafzRFtD0G9iWPu787QRi1dnxD0JnucYRSXMxaeWkFqHcc/exec";
+const URL_WEB_APP = "https://script.google.com/macros/s/AKfycby9uM_qTASPTOChOnJxIiJICmSRxj92EqRVc7wBcKDr6hVpeaFijnZDC2_q_c-5L8D7/exec";
 
 document.getElementById('formTurno').addEventListener('submit', function(e) {
     e.preventDefault();
