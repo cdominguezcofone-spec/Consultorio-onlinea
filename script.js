@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbygfsYY7RHN8VGQ2qoXtR7avgm2wRgGIx5cj26rb7FwXmvxpHaLaf1CBxFabdJTagrm/exec";
+  const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzZrXmOukTNFSq2mnVmMDYwVlCqAUIwxN1Vjc2nAV9aXd1OTQBrAfzQ0Ab3xYRS3dkl/exec";
   const formTurno = document.getElementById("form-turno");
   const selectEspecialista = document.getElementById("especialista");
   const inputFecha = document.getElementById("fecha");
