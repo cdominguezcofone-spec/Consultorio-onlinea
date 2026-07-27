@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Reemplaza esto con tu URL de implementación actual de Google Apps Script si llega a cambiar
-  const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbybXb1nCJU1FbkaPviacBrR9Hvu-rWY_Og8OK5J10LfAOkVTPmNkiJGjslwBrNTkL0-/exec";
+  const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbzM0ZNsUz6MOrEjMibmSeLWcdfaiOz2TTzU4hLROYwZGbrEP4X-ynOy4P1PpnrIefbf/exec";
 
   const formTurno = document.getElementById("form-turno"); // Asegúrate de que el ID de tu formulario en el HTML coincida
 
