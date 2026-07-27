@@ -1,49 +1,57 @@
-// URL de tu Web App de Google Apps Script desplegada
-const URL_WEB_APP = "https://script.google.com/macros/s/AKfycbxYrPUiNxca76oqDQutxBHZfqf_F_VXPWfho6GUNuhFG9vDX0fxkNPRqzEXUn5ZxAmq/exec";
+document.addEventListener("DOMContentLoaded", function () {
+  // Reemplaza esto con tu URL de implementación actual de Google Apps Script si llega a cambiar
+  const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycby2AqqyE1xVmM_yBnI6FHEKldTSimVCKUHtgq-BF_9FelxI2iBdF8NYe9D7fOIM-fpe/exec";
 
-document.getElementById('formTurno').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const btn = document.getElementById('btnSubmit');
-    const msgBox = document.getElementById('mensaje-resultado');
-    
-    btn.disabled = true;
-    btn.textContent = "Procesando...";
-    msgBox.style.display = 'none';
-    
-    const datos = {
-        especialista: document.getElementById('especialista').value,
-        fecha: document.getElementById('fecha').value,
-        paciente: document.getElementById('paciente').value,
-        correo: document.getElementById('correo').value
-    };
+  const formTurno = document.getElementById("form-turno"); // Asegúrate de que el ID de tu formulario en el HTML coincida
 
-    // Petición HTTP POST hacia tu Google Apps Script
-    fetch(URL_WEB_APP, {
-        method: 'POST',
-        mode: 'no-cors', // Evita bloqueos de CORS con Google Apps Script
+  if (formTurno) {
+    formTurno.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Capturamos los valores del formulario
+      const especialista = document.getElementById("especialista").value;
+      const fecha = document.getElementById("fecha").value;
+      const hora = document.getElementById("hora").value; // Hora seleccionada por el paciente (ej: 08:00 a 12:00)
+      const paciente = document.getElementById("paciente").value;
+      const correo = document.getElementById("correo").value;
+
+      // Validación rápida de hora en el cliente antes de enviar
+      const horaPartes = parseInt(hora.split(":")[0]);
+      if (horaPartes < 8 || horaPartes >= 12) {
+        alert("Por favor, seleccione un horario válido entre las 08:00 y las 12:00 hs.");
+        return;
+      }
+
+      const datosTurno = {
+        especialista: especialista,
+        fecha: fecha,
+        hora: hora,
+        paciente: paciente,
+        correo: correo
+      };
+
+      // Mostrar mensaje de carga (opcional)
+      alert("Procesando turno, por favor espere...");
+
+      // Envío de datos mediante fetch (POST) a Google Apps Script
+      fetch(URL_APPS_SCRIPT, {
+        method: "POST",
+        mode: "no-cors", // Necesario para evitar problemas de CORS con Apps Script
         headers: {
-            'Content-Type': 'application/json'
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(datos)
-    })
-    .then(() => {
-        msgBox.style.display = 'block';
-        msgBox.style.backgroundColor = '#d1fae5';
-        msgBox.style.color = '#065f46';
-        msgBox.textContent = "¡Turno registrado con éxito! Se ha enviado la confirmación a su correo.";
-        document.getElementById('formTurno').reset();
-        
-        btn.disabled = false;
-        btn.textContent = "Confirmar Turno";
-    })
-    .catch((err) => {
-        msgBox.style.display = 'block';
-        msgBox.style.backgroundColor = '#fee2e2';
-        msgBox.style.color = '#991b1b';
-        msgBox.textContent = "Ocurrió un error de conexión: " + err.message;
-        
-        btn.disabled = false;
-        btn.textContent = "Confirmar Turno";
+        body: JSON.stringify(datosTurno)
+      })
+      .then(response => {
+        // Nota: Con 'no-cors' la respuesta opaca no deja leer el JSON directamente de inmediato, 
+        // pero el servidor procesa y guarda el turno correctamente en la hoja y envía los correos.
+        alert("¡Petición enviada con éxito! Revisa tu correo electrónico para ver la confirmación.");
+        formTurno.reset();
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("Hubo un error al intentar registrar el turno. Inténtalo nuevamente.");
+      });
     });
+  }
 });
