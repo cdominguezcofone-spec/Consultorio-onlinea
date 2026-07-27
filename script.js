@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // URL configurada con la versión que me proporcionaste
   const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxO-0-O5p3fqPVMpY_BkHIHNmZVyqi5dYGtQFGvf1aebgV6vZ-pdhzBk3bLwmtEfncH/exec";
   const formTurno = document.getElementById("form-turno");
 
@@ -32,11 +31,12 @@ document.addEventListener("DOMContentLoaded", function () {
           botonSubmit.textContent = "Confirmar y Reservar Turno";
         }
 
+        // Validación estricta del servidor
         if (resultado.exito === true) {
           alert(resultado.mensaje);
           formTurno.reset();
         } else {
-          // Aquí se detiene y muestra la alerta exacta si el horario está ocupado o el cupo está lleno
+          // Muestra el aviso de que el horario está ocupado o el cupo está completo
           alert("Aviso: " + resultado.mensaje);
         }
       })
