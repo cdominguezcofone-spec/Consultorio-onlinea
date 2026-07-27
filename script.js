@@ -23,17 +23,23 @@ document.addEventListener("DOMContentLoaded", function () {
           const option = selectHora.options[i];
           if (option.value === "") continue; // Saltar la opción por defecto
 
-          if (horasOcupadas.includes(option.value)) {
+          // Guardar la hora base limpia si no está guardada en un atributo personalizado
+          if (!option.dataset.horaOriginal) {
+            option.dataset.horaOriginal = option.value;
+          }
+
+          const horaBase = option.dataset.horaOriginal;
+
+          if (horasOcupadas.includes(horaBase)) {
             option.disabled = true;
             option.style.backgroundColor = "#e0e0e0";
             option.style.color = "#888888";
-            option.textContent = option.value + " hs (No disponible)";
+            option.textContent = horaBase + " hs (No disponible)";
           } else {
             option.disabled = false;
             option.style.backgroundColor = "";
             option.style.color = "";
-            // Restaurar texto limpio de la hora
-            option.textContent = option.value + " hs";
+            option.textContent = horaBase + " hs";
           }
         }
       })
