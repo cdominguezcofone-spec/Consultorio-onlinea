@@ -1,7 +1,52 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbyfYqlaMg92PsMC9T9tc2FjQdc8Flgknt3RyyEWwUNHQZIqSGSTPe3klgjP0TcceMSw/exec";
+  const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbwvs-Vrg0Pslswel5ljUW8flkP1CEipxa9m3EKeXUBS2DwWZBKd2535OBNtacnR1KE/exec";
   const formTurno = document.getElementById("form-turno");
+  const selectEspecialista = document.getElementById("especialista");
+  const inputFecha = document.getElementById("fecha");
+  const selectHora = document.getElementById("hora");
 
+  // Función para consultar turnos ocupados y bloquearlos visualmente
+  function verificarHorariosOcupados() {
+    const especialista = selectEspecialista.value;
+    const fecha = inputFecha.value;
+
+    if (!especialista || !fecha) return;
+
+    // Consultar al Apps Script los horarios ya reservados
+    fetch(`${URL_APPS_SCRIPT}?action=obtenerOcupados&especialista=${encodeURIComponent(especialista)}&fecha=${fecha}`)
+      .then(response => response.json())
+      .then(data => {
+        const horasOcupadas = data.ocupados || [];
+
+        // Recorrer las opciones del selector de hora
+        for (let i = 0; i < selectHora.options.length; i++) {
+          const option = selectHora.options[i];
+          if (option.value === "") continue; // Saltar la opción por defecto
+
+          if (horasOcupadas.includes(option.value)) {
+            option.disabled = true;
+            option.style.backgroundColor = "#e0e0e0";
+            option.style.color = "#888888";
+            option.textContent = option.value + " hs (No disponible)";
+          } else {
+            option.disabled = false;
+            option.style.backgroundColor = "";
+            option.style.color = "";
+            // Restaurar texto limpio de la hora
+            option.textContent = option.value + " hs";
+          }
+        }
+      })
+      .catch(error => console.error("Error al verificar disponibilidad:", error));
+  }
+
+  // Eventos para actualizar la disponibilidad en tiempo real
+  if (selectEspecialista && inputFecha) {
+    selectEspecialista.addEventListener("change", verificarHorariosOcupados);
+    inputFecha.addEventListener("change", verificarHorariosOcupados);
+  }
+
+  // Envío del formulario
   if (formTurno) {
     formTurno.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -13,9 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       const datosTurno = {
-        especialista: document.getElementById("especialista").value,
-        fecha: document.getElementById("fecha").value,
-        hora: document.getElementById("hora").value,
+        especialista: selectEspecialista.value,
+        fecha: inputFecha.value,
+        hora: selectHora.value,
         paciente: document.getElementById("paciente").value,
         correo: document.getElementById("correo").value,
         obraSocial: document.getElementById("obraSocial").value
@@ -35,8 +80,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (resultado.exito === true) {
           alert(resultado.mensaje);
           formTurno.reset();
+          verificarHorariosOcupados(); // Refrescar horarios bloqueados
         } else {
           alert("Aviso: " + resultado.mensaje);
+          verificarHorariosOcupados(); // Refrescar por si cambió algo
         }
       })
       .catch(error => {
