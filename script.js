@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxO-0-O5p3fqPVMpY_BkHIHNmZVyqi5dYGtQFGvf1aebgV6vZ-pdhzBk3bLwmtEfncH/exec";
+  const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbyfYqlaMg92PsMC9T9tc2FjQdc8Flgknt3RyyEWwUNHQZIqSGSTPe3klgjP0TcceMSw/exec";
   const formTurno = document.getElementById("form-turno");
 
   if (formTurno) {
