@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
         fecha: document.getElementById("fecha").value,
         hora: document.getElementById("hora").value,
         paciente: document.getElementById("paciente").value,
-        correo: document.getElementById("correo").value
+        correo: document.getElementById("correo").value,
+        obraSocial: document.getElementById("obraSocial").value
       };
 
       fetch(URL_APPS_SCRIPT, {
@@ -31,12 +32,10 @@ document.addEventListener("DOMContentLoaded", function () {
           botonSubmit.textContent = "Confirmar y Reservar Turno";
         }
 
-        // Validación estricta del servidor
         if (resultado.exito === true) {
           alert(resultado.mensaje);
           formTurno.reset();
         } else {
-          // Muestra el aviso de que el horario está ocupado o el cupo está completo
           alert("Aviso: " + resultado.mensaje);
         }
       })
