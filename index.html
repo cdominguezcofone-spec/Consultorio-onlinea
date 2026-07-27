@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserva de Turnos - Centro Médico Integral Vida</title>
-    <!-- Enlace al archivo CSS (opcional) -->
     <link rel="stylesheet" href="style.css">
     <style>
         body {
@@ -62,6 +61,10 @@
             box-sizing: border-box;
             font-size: 14px;
         }
+        select option:disabled {
+            background-color: #e0e0e0;
+            color: #888;
+        }
         button {
             background-color: #0077b6;
             color: white;
@@ -88,13 +91,11 @@
 <body>
 
     <div class="container">
-        <!-- Imagen / Logo institucional llamativo -->
         <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=300&q=80" alt="Logo Centro Médico" class="logo-consultorio">
         
         <h2>Centro Médico Integral Vida</h2>
         <p class="subtitulo">Sistema de Gestión y Reserva de Turnos Online</p>
 
-        <!-- Formulario vinculado con Apps Script -->
         <form id="form-turno">
             
             <div class="form-group">
@@ -157,7 +158,6 @@
         </div>
     </div>
 
-    <!-- Archivo JavaScript para la lógica -->
     <script src="script.js"></script>
 </body>
 </html>
