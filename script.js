@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // URL configurada con la versión que me proporcionaste
-  const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbwDVO7dQoDyR71AV-9zWt8veyrAPpryjz9K2sR8nu4Spclf2VfGsOWj6Ci4T_I9IARG/exec";
+  const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbxO-0-O5p3fqPVMpY_BkHIHNmZVyqi5dYGtQFGvf1aebgV6vZ-pdhzBk3bLwmtEfncH/exec";
   const formTurno = document.getElementById("form-turno");
 
   if (formTurno) {
