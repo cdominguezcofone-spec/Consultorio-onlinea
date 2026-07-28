@@ -5,157 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserva de Turnos - Centro Médico Integral Vida</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
-        }
-        .logo-consultorio {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-            border: 3px solid #0077b6;
-        }
-        h2 {
-            color: #0077b6;
-            margin-bottom: 5px;
-        }
-        .subtitulo {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 25px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
-            font-size: 14px;
-        }
-        select, input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-        select option:disabled {
-            background-color: #e0e0e0;
-            color: #888;
-        }
-        button {
-            background-color: #0077b6;
-            color: white;
-            border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.3s ease;
-        }
-        button:hover {
-            background-color: #023e8a;
-        }
-        .contacto-info {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #888;
-        }
-    </style>
 </head>
 <body>
 
-    <div class="container">
+    <!-- Pantalla Principal con Botón de Acceso -->
+    <div class="main-banner">
         <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=300&q=80" alt="Logo Centro Médico" class="logo-consultorio">
-        
         <h2>Centro Médico Integral Vida</h2>
-        <p class="subtitulo">Sistema de Gestión y Reserva de Turnos Online</p>
+        <p class="subtitulo">En nuestro establecimiento <strong>contamos con la mejor tecnología</strong> para cuidar de tu salud y ofrecerte una gestión de turnos ágil, segura y transparente.</p>
+        
+        <button class="btn-abrir-modal" id="btnAbrirModal">Reservar Turno Online</button>
+    </div>
 
-        <form id="form-turno">
-            
-            <div class="form-group">
-                <label for="especialista">Seleccione Especialista y Especialidad:</label>
-                <select id="especialista" required>
-                    <option value="" disabled selected>Elija un profesional</option>
-                    <option value="Dr. Mateo Fernández - Cardiología">Dr. Mateo Fernández - Cardiología</option>
-                    <option value="Dra. Sofía Benítez - Pediatría">Dra. Sofía Benítez - Pediatría</option>
-                    <option value="Dr. Lucas Gómez - Traumatología">Dr. Lucas Gómez - Traumatología</option>
-                    <option value="Dra. Valentina Torres - Dermatología">Dra. Valentina Torres - Dermatología</option>
-                    <option value="Dr. Joaquín Ramírez - Clínica Médica">Dr. Joaquín Ramírez - Clínica Médica</option>
-                </select>
-            </div>
+    <!-- Ventana Modal Oculta con el Formulario -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <button class="btn-cerrar" id="btnCerrarModal">&times;</button>
+            <h3>Formulario de Turnos</h3>
 
-            <div class="form-group">
-                <label for="fecha">Fecha del Turno:</label>
-                <input type="date" id="fecha" required>
-            </div>
+            <form id="form-turno">
+                <div class="form-group">
+                    <label for="especialista">Seleccione Especialista y Especialidad:</label>
+                    <select id="especialista" required>
+                        <option value="" disabled selected>Elija un profesional</option>
+                        <option value="Dr. Mateo Fernández - Cardiología">Dr. Mateo Fernández - Cardiología</option>
+                        <option value="Dra. Sofía Benítez - Pediatría">Dra. Sofía Benítez - Pediatría</option>
+                        <option value="Dr. Lucas Gómez - Traumatología">Dr. Lucas Gómez - Traumatología</option>
+                        <option value="Dra. Valentina Torres - Dermatología">Dra. Valentina Torres - Dermatología</option>
+                        <option value="Dr. Joaquín Ramírez - Clínica Médica">Dr. Joaquín Ramírez - Clínica Médica</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="hora">Horario (De 08:00 a 12:00 hs):</label>
-                <select id="hora" required>
-                    <option value="" disabled selected>Seleccione un horario</option>
-                    <option value="08:00">08:00 hs</option>
-                    <option value="09:00">09:00 hs</option>
-                    <option value="10:00">10:00 hs</option>
-                    <option value="11:00">11:00 hs</option>
-                    <option value="12:00">12:00 hs</option>
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="fecha">Fecha del Turno:</label>
+                    <input type="date" id="fecha" required>
+                </div>
 
-            <div class="form-group">
-                <label for="paciente">Nombre y Apellido del Paciente:</label>
-                <input type="text" id="paciente" placeholder="Ej: Juan Pérez" required>
-            </div>
+                <div class="form-group">
+                    <label for="hora">Horario (De 08:00 a 12:00 hs):</label>
+                    <select id="hora" required>
+                        <option value="" disabled selected>Seleccione un horario</option>
+                        <option value="08:00">08:00 hs</option>
+                        <option value="09:00">09:00 hs</option>
+                        <option value="10:00">10:00 hs</option>
+                        <option value="11:00">11:00 hs</option>
+                        <option value="12:00">12:00 hs</option>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="correo">Correo Electrónico:</label>
-                <input type="email" id="correo" placeholder="correo@ejemplo.com" required>
-            </div>
+                <div class="form-group">
+                    <label for="paciente">Nombre y Apellido del Paciente:</label>
+                    <input type="text" id="paciente" placeholder="Ej: Juan Pérez" required>
+                </div>
 
-            <div class="form-group">
-                <label for="obraSocial">Obra Social / Prepaga:</label>
-                <select id="obraSocial" required>
-                    <option value="" disabled selected>Seleccione su cobertura</option>
-                    <option value="Particular">Particular</option>
-                    <option value="OSDE">OSDE</option>
-                    <option value="Swiss Medical">Swiss Medical</option>
-                    <option value="IOMA">IOMA</option>
-                    <option value="PAMI">PAMI</option>
-                    <option value="Otra">Otra</option>
-                </select>
-            </div>
+                <div class="form-group">
+                    <label for="correo">Correo Electrónico:</label>
+                    <input type="email" id="correo" placeholder="correo@ejemplo.com" required>
+                </div>
 
-            <button type="submit">Confirmar y Reservar Turno</button>
-        </form>
+                <div class="form-group">
+                    <label for="obraSocial">Obra Social / Prepaga:</label>
+                    <select id="obraSocial" required>
+                        <option value="" disabled selected>Seleccione su cobertura</option>
+                        <option value="Particular">Particular</option>
+                        <option value="OSDE">OSDE</option>
+                        <option value="Swiss Medical">Swiss Medical</option>
+                        <option value="IOMA">IOMA</option>
+                        <option value="PAMI">PAMI</option>
+                        <option value="Otra">Otra</option>
+                    </select>
+                </div>
 
-        <div class="contacto-info">
-            <p>Contacto institucional: contacto@consultoriovida.com</p>
+                <button type="submit" class="btn-submit">Confirmar y Reservar Turno</button>
+            </form>
         </div>
+    </div>
+
+    <div class="contacto-info">
+        <p>Contacto institucional: contacto@consultoriovida.com</p>
     </div>
 
     <script src="script.js"></script>
